@@ -1,0 +1,21 @@
+service: price-monitoring-telegram-bot
+
+provider:
+  name: aws
+  runtime: python3.8
+  region: sa-east-1
+
+functions:
+  send_price:
+    handler: main.main
+    events:
+      - schedule: cron(0 10 * * ? *)
+      - schedule: cron(0 17 * * ? *)
+
+plugins:
+  - serverless-python-requirements
+
+custom:
+  pythonRequirements:
+    dockerizePip: false
+    usePipenv: true
